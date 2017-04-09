@@ -12,24 +12,29 @@
  **/
 int main (int argc, char *av[])
 {
+	char **new;
 	char *token;
 	char delim[2] = " "; /* why 2? */
 	unsigned int i = 0;
 
+	/* printf("argc --> %d", argc); */
 	if (argc != 2)
-		printf ("Wrong number of arguments!\n");
-		printf ("Please pass one string in quotes!\n");
+	{
 		return (-1);
-	/*
-	&str[i] = av[1];
-	*/
-
+	}
+	new = malloc(sizeof(int *));
+	if (new == NULL)
+		return (-1);
 	token = strtok(av[1], delim);
+	new[i] = token;
 	while (token != NULL)
 	{
-		new[i] = token;
 		i++;
-		token = strtok(av[1], delim);
+		new[i] = malloc(sizeof(char*));
+		if (new[i] == NULL)
+			return (-1); /* see 3-alloc_grid.c for proper freeing of mallocs */
+		token = strtok(NULL, delim);
+		new[i] = token;
 	}
 	return (0);
 }
